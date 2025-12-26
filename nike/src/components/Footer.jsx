@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="bg-black text-white px-8 py-5 mt-5 font-[ubuntu] flex justify-between max-md:flex-col max-md:space-y-8">
+    <footer className="bg-black text-white px-8 py-5 font-[ubuntu] flex justify-between max-md:flex-col max-md:space-y-8">
       <ul className="text-gray-400 space-y-3">
         <h2 className="font-bold text-white">FIND A STORE</h2>
         <li>
