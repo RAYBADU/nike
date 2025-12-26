@@ -1,9 +1,8 @@
 import { useState } from "react";
 import Logo from "../assets/nike.svg";
 
-function Nav() {
+function Nav({count}) {
   const [open, setOpen] = useState(false);
-  const [count, setCount] = useState(0);
   const [slide, setSlide] = useState(false);
 
   return (
@@ -46,7 +45,7 @@ function Nav() {
       {/* ICONS */}
       <div className="space-x-4">
         <i
-          onClick={() => setCount(count + 1)}
+          
           className="fa-regular fa-heart cursor-pointer hover:scale-[1.2] transition-hover duration-200"
         ></i>
         <i
