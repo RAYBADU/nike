@@ -1,10 +1,14 @@
+import { useState } from "react";
+
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import Details from "./components/Details";
 import Cards from "./components/Cards";
+import Cart from "./components/Cart";
 import Services from "./components/Services";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
+
 import Airforce from "./assets/airforce.avif";
 import Airforce1 from "./assets/airforce-1.avif";
 import AirforceGreen from "./assets/airforce-green.avif";
@@ -18,11 +22,16 @@ import Shield from "./assets/shield.svg";
 import Returns from "./assets/returns.svg";
 import Support from "./assets/support.svg";
 
-import { useState } from "react";
-
 function App() {
+  // count of items in cart
   const [count, setCount] = useState(0);
-  const [cart, setCart] = useState([]);
+
+  // cart visibility state (BOOLEAN ONLY)
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  // explicit actions (FUNCTIONS ONLY)
+  const openCart = () => setIsCartOpen(true);
+  const closeCart = () => setIsCartOpen(false);
 
   const cards = [
     {
@@ -31,7 +40,7 @@ function App() {
       type: "Running",
       name: "Nike Air Max",
       quantity: "3 colors",
-      price: `$${150.0}`,
+      price: `$${150}`,
     },
     {
       id: 2,
@@ -39,7 +48,7 @@ function App() {
       type: "Lifestyle",
       name: "Nike Airforce 1",
       quantity: "5 colors",
-      price: `$${110.0}`,
+      price: `$${110}`,
     },
     {
       id: 3,
@@ -47,7 +56,7 @@ function App() {
       type: "Basketball",
       name: "Nike Zoom Freak",
       quantity: "2 colors",
-      price: `$${130.0}`,
+      price: `$${130}`,
     },
     {
       id: 4,
@@ -55,7 +64,7 @@ function App() {
       type: "Lifestyle",
       name: "Nike Air Max 97",
       quantity: "4 colors",
-      price: `$${180.0}`,
+      price: `$${180}`,
     },
     {
       id: 5,
@@ -63,7 +72,7 @@ function App() {
       type: "Basketball",
       name: "Air Jordan 1 Retro",
       quantity: "6 colors",
-      price: `$${170.0}`,
+      price: `$${170}`,
     },
     {
       id: 6,
@@ -71,7 +80,7 @@ function App() {
       type: "Running",
       name: "Nike Metcon 7",
       quantity: "3 colors",
-      price: `$${140.0}`,
+      price: `$${140}`,
     },
     {
       id: 7,
@@ -79,7 +88,7 @@ function App() {
       type: "Dancing",
       name: "Nike Air Jordan",
       quantity: "9 colors",
-      price: `$${230.0}`,
+      price: `$${230}`,
     },
     {
       id: 8,
@@ -120,9 +129,19 @@ function App() {
 
   return (
     <div>
-      <Nav count={count} />
+      {/* NAV: only opens the cart */}
+      <Nav count={count} onCartClick={openCart} />
+
+      {/* CART: controlled by App */}
+      <Cart
+        isOpen={isCartOpen}
+        onClose={closeCart}
+        count={count}
+      />
+
       <Hero />
       <Details />
+
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {cards.map((card) => (
           <Cards
@@ -141,7 +160,7 @@ function App() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {services.map((service) => (
             <Services
-              id={service.id}
+              key={service.id}
               img={service.img}
               name={service.name}
               desc={service.desc}

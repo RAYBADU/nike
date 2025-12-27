@@ -1,9 +1,11 @@
+import React, { useState, useEffect } from "react";
+
 function Cards({ img, type, name, quantity, price, setCount }) {
-function addToCart(){
-  setCount((prevCount) => prevCount +1)
-}
+  function addToCart() {
+    setCount((prevCount) => prevCount + 1);
+  }
 
-
+  const [toast, setToast] = useState(false);
 
   return (
     <section className="px-8 py-5 overflow-hidden ">
@@ -25,10 +27,25 @@ function addToCart(){
           <p className="text-xl font-semibold">{name}</p>
           <p className="text-gray-500">{quantity}</p>
           <p>{price}</p>
-          <button onClick={addToCart} className="text-center bg-pink-500 text-white px-4 py-2 rounded-lg mt-4 cursor-pointer hover:bg-pink-400 transition-all max-md:text-xs">
+          <button
+            onClick={() => {
+              addToCart();
+              setToast(true);
+            }}
+            className="text-center bg-pink-500 text-white px-4 py-2 rounded-lg mt-4 cursor-pointer hover:bg-pink-400 transition-all max-md:text-xs"
+          >
             Add to Cart
           </button>
         </div>
+      </div>
+
+      {/* Toast notification */}
+      <div
+        className={`fixed bottom-4 right-4 bg-black text-white px-4 py-2 rounded-lg shadow-lg transition-all ${
+          toast ? " opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        }`}
+      >
+        <p>Item added to cart!</p>
       </div>
     </section>
   );
